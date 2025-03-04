@@ -20,7 +20,7 @@ class Note {
 	}
 }
 
-const multipliers = [50, 20, 7, 4, 3, 1, 1, 0, 0, 0, 1, 1, 3, 4, 7, 20, 50];
+const multipliers = [10, 5, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 3, 5, 10];
 multipliers.forEach(
 	(m, i) => (document.getElementById(`note-${i}`).innerHTML = m)
 );
@@ -47,6 +47,7 @@ const notes = [
 ].map((note) => new Note(note));
 
 let balls = 10;
+let dropCount = 1;
 const ballsEl = document.getElementById("balls");
 
 // Click noise synth when clicking drop
@@ -57,18 +58,19 @@ const dropButton = document.getElementById("drop-button");
 const autoDropCheckbox = document.getElementById("checkbox");
 let autoDropEnabled = false;
 let autoDroppingInterval = null;
+
 dropButton.addEventListener("click", () => {
 	if (autoDropEnabled && autoDroppingInterval) {
 		dropButton.innerHTML = "Start";
-		clearInterval(autoDroppingInterval);
-		autoDroppingInterval = null;
-	} else if (autoDropEnabled && !autoDroppingInterval) {
-		dropButton.innerHTML = "Stop";
-		dropABall();
-		autoDroppingInterval = setInterval(dropABall, 600);
-	} else if (!autoDropEnabled) {
-		dropABall();
-	}
+    	clearInterval(autoDroppingInterval);
+    	autoDroppingInterval = null;
+  	} else if (autoDropEnabled && !autoDroppingInterval) {
+    	dropButton.innerHTML = "Stop";
+    	dropBalls(dropCount);
+    	autoDroppingInterval = setInterval(() => dropBalls(dropCount), 200);
+  	} else if (!autoDropEnabled) {
+    	dropBalls(dropCount);
+  	}
 });
 autoDropCheckbox.addEventListener("input", (e) => {
 	autoDropEnabled = e.target.checked;
@@ -87,10 +89,12 @@ autoDropCheckbox.addEventListener("input", (e) => {
 
 // Drop a ball
 const BALL_RAD = 7;
-function dropABall() {
-	if (balls > 0) {
-		balls -= 1;
+function dropABall(delay = 0) {
+	if (balls <= 0) {
+		return;
 	}
+	balls -= 1;
+
 	const dropLeft = width / 2 - GAP;
 	const dropRight = width / 2 + GAP;
 	const dropWidth = dropRight - dropLeft;
@@ -104,8 +108,29 @@ function dropABall() {
 			fillStyle: "#f23"
 		}
 	});
-	clickSynth.triggerAttackRelease("32n", Tone.context.currentTime);
+	//delayed start for multiplier to work
+	const now = Tone.now();
+	clickSynth.triggerAttackRelease("32n", now + delay);
+	ball.scored = false;
 	Composite.add(engine.world, [ball]);
+}
+
+//Multiplier button: increment dropCount up to 5
+const multiplierButton = document.getElementById("multiplier");
+multiplierButton.addEventListener("click", () => {
+  	if (dropCount < 5) {
+    	dropCount += 1;
+  	} else {
+    	dropCount = 1;
+	}
+	document.getElementById("multiplier").innerText = dropCount;
+});
+
+function dropBalls(count) {
+	for (let i =0; i<count; i++) {
+		if (balls <= 0) break;
+		dropABall(i * 0.01); //delayed for multiplier to work
+	}
 }
 
 // module aliases
@@ -188,6 +213,9 @@ Matter.Events.on(engine, "collisionStart", (event) => {
 	event.pairs.forEach(({ bodyA, bodyB }) => {
 		// check for ball hitting the ground
 		checkCollision(event, "Ball", "Ground", (ballToRemove) => {
+			if (ballToRemove.scored) return;
+			ballToRemove.scored = true;
+
 			Matter.Composite.remove(engine.world, ballToRemove);
 			const index = Math.floor(
 				(ballToRemove.position.x - width / 2) / GAP + 17 / 2
