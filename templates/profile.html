@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="profile_body">
+    <div id="profile">
+        <div id="profile_information">
+            <img id="profile_img" src="static/images/profileExample.jpg" />
+            <div>
+                <div class="space_between" id="profile_buttons">
+                    <h1 id="profile_name">TOMMY SMITH</h1>
+                    <button class="actual_buttons">use points</button>
+                    <button class="actual_buttons">edit profile</button>
+                </div>
+                <div class="space_between" id="profile_text">
+                    <h4>7 posts</h4>
+                    <h4>200 friends</h4>
+                    <h4>400 followers</h4>
+                    <h4>32 points</h4>
+                    <h4>IQ: 34</h4>
+                </div>
+            </div>
+        </div>
+        <div id="center">
+            <div id="gallery">
+                <img class="gallery_images" src="static/images/profileExample.jpg"/>
+                <img class="gallery_images" src="static/images/profileExample.jpg"/>
+                <img class="gallery_images" src="static/images/profileExample.jpg"/>
+                <img class="gallery_images" src="static/images/profileExample.jpg"/>
+                <img class="gallery_images" src="static/images/profileExample.jpg"/>
+                <img class="gallery_images" src="static/images/profileExample.jpg"/>
+            </div>
+         </div>
+    </div>
+</div>
+
+{% endblock %}

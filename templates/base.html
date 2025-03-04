@@ -28,6 +28,14 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    {% if profile %} 
+    <link 
+      rel="stylesheet" 
+      href="{{ url_for('static', filename='profile/css/profile.css') }}"
+      type="text/css"
+    />
+    <script src="{{ url_for('static', filename='profile/js/profile.js')}}"></script>
+    {% endif %}
     {% if games %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
