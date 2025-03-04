@@ -1,4 +1,4 @@
-# Solitare
+# Plinko
 
 https://codepen.io/ScarpMetal/pen/jOJrxMB
 
