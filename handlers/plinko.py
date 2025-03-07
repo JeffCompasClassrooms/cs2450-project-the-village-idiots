@@ -3,8 +3,8 @@ import flask
 from handlers import copy
 from db import posts, users, helpers
 
-blueprint = flask.Blueprint("gambling", __name__)
-@blueprint.route('/gambling')
+blueprint = flask.Blueprint("plinko", __name__)
+@blueprint.route('/plinko')
 def index():
     """Serves the main feed page for the user."""
     db = helpers.load_db()
@@ -22,6 +22,6 @@ def index():
         resp.set_cookie('password', '', expires=0)
         return resp
 
-    return flask.render_template('gambling.html', title=copy.title,
+    return flask.render_template('plinko.html', title=copy.title,
             subtitle=copy.subtitle, user=user, username=username,
             games=True)
