@@ -287,4 +287,18 @@ function run() {
 	requestAnimationFrame(run);
 }
 
+// Modal logic for Plinko popup
+const plinkoModal = document.getElementById("plinkoModal");
+const closeBtn = document.querySelector("#plinkoModal .close");
+
+closeBtn.addEventListener("click", function() {
+  plinkoModal.style.display = "none";
+});
+
+window.addEventListener("click", function(event) {
+  if (event.target === plinkoModal) {
+    plinkoModal.style.display = "none";
+  }
+});
+
 run();
