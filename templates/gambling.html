@@ -1,50 +1,69 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block head %} {{ super() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='games/css/plinko.css') }}"
+  type="text/css"
+/>
+<script
+  src="{{url_for('static', filename='games/js/plinko.js') }}"
+  defer
+></script>
+{% endblock %} {% block content %}
 <div class="controls">
-	<div></div>
-	<div>
-		<div id="balls">-</div>
-	</div>
-	<div class="drop-container">
-		<div class="drop">
-			<button id="drop-button" type="button">Drop</button>
-			<input id="checkbox" type="checkbox" />
-			<label for="checkbox">
-				<div class="box">
-					<svg class="checked" xmlns="http://www.w3.org/2000/svg" width="8px" height="8px" viewBox="0 0 24 24">
-						<path fill="#ffffff" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-					</svg>
-				</div>
-			</label>
-		</div>
-	</div>
-	<div>
-		<div id="multiplier">1</div>
-	</div>
-	<div></div>
+  <div></div>
+  <div>
+    <div id="balls">-</div>
+  </div>
+  <div class="drop-container">
+    <div class="drop">
+      <button id="drop-button" type="button">Drop</button>
+      <input id="checkbox" type="checkbox" />
+      <label for="checkbox">
+        <div class="box">
+          <svg
+            class="checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8px"
+            height="8px"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#ffffff"
+              d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"
+            />
+          </svg>
+        </div>
+      </label>
+    </div>
+  </div>
+  <div>
+    <div id="multiplier">1</div>
+  </div>
+  <div></div>
 </div>
 <div class="canvas-container">
-	<canvas id="canvas"></canvas>
+  <canvas id="canvas"></canvas>
 </div>
 <div class="notes">
-	<div type="button" class="note" id="note-0">10</div>
-	<div type="button" class="note" id="note-1">5</div>
-	<div type="button" class="note" id="note-2">3</div>
-	<div type="button" class="note" id="note-3">1</div>
-	<div type="button" class="note" id="note-4">1</div>
-	<div type="button" class="note" id="note-5">0</div>
-	<div type="button" class="note" id="note-6">0</div>
-	<div type="button" class="note" id="note-7">0</div>
-	<div type="button" class="note" id="note-8">0</div>
-	<div type="button" class="note" id="note-9">0</div>
-	<div type="button" class="note" id="note-10">0</div>
-	<div type="button" class="note" id="note-11">0</div>
-	<div type="button" class="note" id="note-12">1</div>
-	<div type="button" class="note" id="note-13">1</div>
-	<div type="button" class="note" id="note-14">3</div>
-	<div type="button" class="note" id="note-15">5</div>
-	<div type="button" class="note" id="note-16">10</div>
+  <div type="button" class="note" id="note-0">10</div>
+  <div type="button" class="note" id="note-1">5</div>
+  <div type="button" class="note" id="note-2">3</div>
+  <div type="button" class="note" id="note-3">1</div>
+  <div type="button" class="note" id="note-4">1</div>
+  <div type="button" class="note" id="note-5">0</div>
+  <div type="button" class="note" id="note-6">0</div>
+  <div type="button" class="note" id="note-7">0</div>
+  <div type="button" class="note" id="note-8">0</div>
+  <div type="button" class="note" id="note-9">0</div>
+  <div type="button" class="note" id="note-10">0</div>
+  <div type="button" class="note" id="note-11">0</div>
+  <div type="button" class="note" id="note-12">1</div>
+  <div type="button" class="note" id="note-13">1</div>
+  <div type="button" class="note" id="note-14">3</div>
+  <div type="button" class="note" id="note-15">5</div>
+  <div type="button" class="note" id="note-16">10</div>
 </div>
 
 {% endblock %}
