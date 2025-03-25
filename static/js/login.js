@@ -6,7 +6,7 @@
   //     passwordInput.type === "password" ? "text" : "password";
   //   // showPassword.textContent =
   //   //   passwordInput.type === "password" ? "Show" : "Hide";
-  // });
+  // }); 
 })();
 
 function showLogin() {

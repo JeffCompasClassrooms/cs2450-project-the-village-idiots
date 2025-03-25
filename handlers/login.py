@@ -2,7 +2,7 @@ import flask
 
 from handlers import copy
 from db import posts, users, helpers
-
+ 
 blueprint = flask.Blueprint("login", __name__)
 
 @blueprint.route('/loginscreen')

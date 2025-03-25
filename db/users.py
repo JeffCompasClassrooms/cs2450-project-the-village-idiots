@@ -1,5 +1,5 @@
 import tinydb
-
+ 
 def new_user(db, username, hashed_password, first_name, last_name):
     users = db.table('users')
     User = tinydb.Query()
