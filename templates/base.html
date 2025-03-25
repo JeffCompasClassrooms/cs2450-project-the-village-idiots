@@ -28,14 +28,21 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    {% block head %} {% endblock %}
+    {% if profile %} 
+    <link 
+      rel="stylesheet" 
+      href="{{ url_for('static', filename='profile/css/profile.css') }}"
+      type="text/css"
+    />
+    <script src="{{ url_for('static', filename='profile/js/profile.js')}}"></script>
+    {% endif %}
   </head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
         <a class="navbar-brand" href="/">{{ title }}</a>
-        <a class="navbar-brand" href="/gambling">plinko</a>
+        <a class="navbar-brand" href="/games">games</a> 
         <a class="navbar-brand" href="/posts">posts</a>
         <a class="navbar-brand" href="/friends">messages</a>
         <a class="navbar-brand" href="/profile">profile</a>
