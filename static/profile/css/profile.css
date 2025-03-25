@@ -4,6 +4,7 @@
     background-color: blue;
     display: flex;
     justify-content: center;
+    padding: 100px;
 }
 #profile {
     background-color: white;
@@ -44,17 +45,24 @@
     font-size: 25px;
 }
 #profile_img{
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    object-fit: cover;
+    overflow: hidden;
 }
 #gallery {
     display: grid;
     grid-template-columns: repeat(3, 200px);
     grid-auto-rows: 200px;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
 }
 .gallery_images{
-    width: 180px;
-    height: 180px;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    overflow: hidden;
 }
 #center{
     padding-top: 30px;
