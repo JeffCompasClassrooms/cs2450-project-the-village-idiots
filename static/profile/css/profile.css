@@ -1,7 +1,7 @@
 #profile_body {
     height: 80vh;
     width: 100%;
-    background-color: blue;
+    /* background-color: blue; */
     display: flex;
     justify-content: center;
     padding: 100px;

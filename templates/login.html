@@ -1,11 +1,9 @@
 {% extends "base.html" %} {% block head %} {{ super() }}
-<script
-  src="{{url_for('static', filename='js/login.js') }}"
-  defer
-></script>
+<script src="{{url_for('static', filename='js/login.js') }}" defer></script>
+
 {% endblock %}
 {% block content %}
-
+  <link rel="stylesheet" href="{{ url_for('static', filename='login/login.css') }}" type="text/css" />
       <div id="signInImg">
         <div class="login">
           
