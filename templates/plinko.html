@@ -1,25 +1,36 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='games/css/plinko.css') }}"
+  type="text/css"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<script
+  src="{{ url_for('static', filename='games/js/plinko.js') }}"
+  defer
+></script>
+{% endblock %} {% block content %}
 <!-- Modal Popup for Plinko Rules & Tips -->
 <div id="plinkoModal" class="modal">
-	<div class="modal-content">
-	<span class="close">&times;</span>
-	<h2>Plinko Rules & Tips</h2>
-	<p>Welcome to Plinko! Here is how to play:</p>
-	<ul>
-		<li>Click the "Drop" button to release the ball.</li>
-		<li>The ball bounces off pegs and lands in scoring slots.</li>
-		<li>Each slot awards different points based on where the ball lands.</li>
-		<li>You can change how many balls drop at once by clicking the multiplier in the top right.</li>
-		<li>To have the balls drop automatically, click the auto-drop button.</li>
-		<li>***This game is 100% luck.***</li>
-	</ul>
-	<p>Good luck!</p>
-	</div>
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Plinko Rules & Tips</h2>
+    <p>Welcome to Plinko! Here is how to play:</p>
+    <ul>
+      <li>Click the "Drop" button to release the ball.</li>
+      <li>The ball bounces off pegs and lands in scoring slots.</li>
+      <li>Each slot awards different points based on where the ball lands.</li>
+      <li>
+        You can change how many balls drop at once by clicking the multiplier in
+        the top right.
+      </li>
+      <li>To have the balls drop automatically, click the auto-drop button.</li>
+      <li>***This game is 100% luck.***</li>
+    </ul>
+    <p>Good luck!</p>
+  </div>
 </div>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='games/css/plinko.css') }}" type="text/css" />
 
 <div class="controls">
   <div></div>
@@ -75,8 +86,4 @@
   <div type="button" class="note" id="note-15">5</div>
   <div type="button" class="note" id="note-16">10</div>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-<script src="{{ url_for('static', filename='games/js/plinko.js') }}" defer></script>
 {% endblock %}
