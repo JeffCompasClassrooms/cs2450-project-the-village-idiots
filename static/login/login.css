@@ -34,8 +34,8 @@
 
 #signInImg {
     top: 20%;
-    position: fixed; /* Stays in place even when scrolling */
-    left:50%; /* Positions the line at the horizontal center */
+    position: fixed;
+    left:50%;
     width: 0px; 
 }
 
