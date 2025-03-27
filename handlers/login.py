@@ -41,7 +41,7 @@ def login():
     resp.set_cookie('password', hashed_password)
 
     submit = flask.request.form.get('type')
-    if submit == 'Create':
+    if submit == 'Create Account':
         first_name = flask.request.form.get('new_first_name')
         last_name = flask.request.form.get('new_last_name')
 

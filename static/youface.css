@@ -10,3 +10,25 @@
         }
     }
 }
+
+.navbar {
+    background-color: #2F5F76;
+    color:white;
+    height: 4em;
+}
+
+.navbar-brand {
+    margin: auto;
+}
+
+/* debugging centerline  */
+.center-line {
+    position: fixed;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: red;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
