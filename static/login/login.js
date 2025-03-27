@@ -1,22 +1,27 @@
 (() => {
   const passwordInput = document.getElementById("password_input");
   const loginButton = document.getElementById('loginButton');
-  const signinButton = document.getElementById('signinButton'); // added to make sure the slider buttons do not get an outline momentarially 
+  const signinButton = document.getElementById('signinButton');
 
   [loginButton, signinButton].forEach(button => {
     button.addEventListener('mousedown', (e) => {
       e.preventDefault();
-    }); button.addEventListener('click', () => {
-      button.blur(); //to remove focus from the button and remove the outline
+    });
+    
+    button.addEventListener('click', () => {
+      button.blur(); // to remove focus from the button and remove the outline
     });
   });
+
   document.addEventListener('DOMContentLoaded', () => {
-    const toggleIcon = document.getElementById("passwordToggleIcon");
-    toggleIcon.classList.add('password-closed');
+    const toggleIcon = document.getElementsByClassName("passwordToggleIcon")[0]; // Fix: Use index to get first element
+    if (toggleIcon) { // Add a check to prevent null reference
+      toggleIcon.classList.add('password-closed');
+    }
   });
 })();
 
-//function to toggle the visibility of the password and to toggle the eye icon
+// Function to toggle the visibility of the password and to toggle the eye icon
 function togglePassword() {
   var password = document.getElementById("password_input");
   var new_password = document.getElementById("new_password");
