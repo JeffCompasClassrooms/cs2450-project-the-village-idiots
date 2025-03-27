@@ -75,10 +75,6 @@
     cursor: pointer;
 }
 
-.sliderButtonActive:focus {
-    outline: none;
-}
-
 .sliderButtonInactive {
     width: 49%;
     height: 80%;

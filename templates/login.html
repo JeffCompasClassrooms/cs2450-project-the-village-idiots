@@ -11,8 +11,8 @@
     <div class="login">
       <h1 id="loginH1">LOGIN</h1>
         <div id="buttonSlider">
-          <button id="loginButton" class="sliderButtonActive" onclick="showLogin()">LOGIN</button>
-          <button id="signinButton" class="sliderButtonInactive" onclick="showSignup()">SIGNUP</button>
+          <button id="loginButton" class="sliderButtonActive">LOGIN</button>
+          <button id="signinButton" class="sliderButtonInactive">SIGNUP</button>
         </div>
         <form method="post" action="/login">
           <fieldset class="login">
@@ -20,7 +20,7 @@
               <input type="text" name="username" class="signinInput" placeholder="Username" id="username">
               <div class="passwordToggleContainer">
                 <input id="password_input" name="password" class="signinInput" placeholder="Password" type="password">
-                <img class="passwordToggleIcon" src="{{ url_for('static', filename='login/images/eye_closed.svg') }}" onclick="togglePassword()" class="passwordToggleIcon">
+                <img class="passwordToggleIcon" src="{{ url_for('static', filename='login/images/eye_closed.svg') }}" class="passwordToggleIcon">
               </div>              
               <input class="logInButton" type="submit" name="type" value="Login"/>
             </div>
@@ -31,7 +31,7 @@
               <input id="new_username" name="new_username" class="signinInput" placeholder="Username" type="text" >
               <div class="passwordToggleContainer">
                 <input id="new_password" name="new_password" class="signinInput" placeholder="Password" type="password">
-                <img class="passwordToggleIcon" src="{{ url_for('static', filename='login/images/eye_closed.svg') }}" onclick="togglePassword()" class="passwordToggleIcon">
+                <img class="passwordToggleIcon" src="{{ url_for('static', filename='login/images/eye_closed.svg') }}" class="passwordToggleIcon">
               </div>  
               <input class="logInButton" type="submit" name="type" value="Create Account" />          
             </div>
