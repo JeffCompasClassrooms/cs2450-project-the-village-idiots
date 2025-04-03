@@ -32,9 +32,16 @@ def login():
     """
     db = helpers.load_db()
 
-    username = flask.request.form.get('new_username')
-    password = flask.request.form.get('new_password')
+    if (flask.request.form.get('new_username')):
+        username = flask.request.form.get('new_username')
+        password = flask.request.form.get('new_password')
+    else:
+        username = flask.request.form.get('username')
+        password = flask.request.form.get('password')
+
     hashed_password = helpers.hash_password(password)
+
+    print(password + " | " + hashed_password)
 
     resp = flask.make_response(flask.redirect(flask.url_for('login.index')))
     resp.set_cookie('username', username)
