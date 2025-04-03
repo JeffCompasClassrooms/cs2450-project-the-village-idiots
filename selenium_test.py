@@ -27,7 +27,7 @@ class TestLoginPage(unittest.TestCase):
         user_data_dir = f"--user-data-dir=/tmp/chrome-user-data-{timestamp}"
         chrome_options.add_argument(user_data_dir)
 
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome(options=chrome_options)
         #
         # test empty username and password
         #
