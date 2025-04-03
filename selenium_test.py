@@ -23,6 +23,8 @@ class TestLoginPage(unittest.TestCase):
 
     def test_create_user(self):
         chrome_options = Options()
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--headless")
         timestamp = str(int(time.time()))
         user_data_dir = f"--user-data-dir=/tmp/chrome-user-data-{timestamp}"
         chrome_options.add_argument(user_data_dir)
