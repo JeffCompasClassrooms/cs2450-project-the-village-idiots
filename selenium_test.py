@@ -6,6 +6,7 @@ import unittest.mock
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
 
 YOUFACE_URL = "http://localhost:5000"
@@ -21,6 +22,11 @@ class TestLoginPage(unittest.TestCase):
 
 
     def test_create_user(self):
+        chrome_options = Options()
+        timestamp = str(int(time.time()))
+        user_data_dir = f"--user-data-dir=/tmp/chrome-user-data-{timestamp}"
+        chrome_options.add_argument(user_data_dir)
+
         driver = webdriver.Chrome()
         #
         # test empty username and password
