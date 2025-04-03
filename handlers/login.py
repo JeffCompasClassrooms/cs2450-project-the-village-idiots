@@ -41,8 +41,6 @@ def login():
 
     hashed_password = helpers.hash_password(password)
 
-    print(password + " | " + hashed_password)
-
     resp = flask.make_response(flask.redirect(flask.url_for('login.index')))
     resp.set_cookie('username', username)
     resp.set_cookie('password', hashed_password)
@@ -51,8 +49,6 @@ def login():
     if submit == 'Create Account':
         first_name = flask.request.form.get('new_first_name')
         last_name = flask.request.form.get('new_last_name')
-
-        print("WHAT" + username + password + hashed_password + first_name + last_name)
 
         if users.new_user(db, username, hashed_password, first_name, last_name) is None:
             resp.set_cookie('username', '', expires=0)
