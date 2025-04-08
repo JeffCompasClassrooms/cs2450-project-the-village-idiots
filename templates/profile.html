@@ -10,11 +10,11 @@
 <div id="profile_body">
   <div id="profile">
     <div id="profile_information">
-      <img id="profile_img" src="static/profile/images/profileExample.jpg" />
+      <div id="profile_img">{{ first_name[0] }}</div>
       <div>
         <div class="space_between" id="profile_buttons">
           <h1 id="profile_name">{{ first_name }} {{ last_name }}</h1>
-          <button class="actual_buttons">use points</button>
+          <a class="actual_buttons" href="/games">use points</a>
           <button class="actual_buttons">edit profile</button>
         </div>
         <div class="space_between" id="profile_text">
@@ -31,29 +31,11 @@
           class="gallery_images"
           src="static/profile/images/profileExample.jpg"
         />
-        <img
-          class="gallery_images"
-          src="static/profile/images/profileExample.jpg"
-        />
-        <img
-          class="gallery_images"
-          src="static/profile/images/profileExample.jpg"
-        />
-        <img
-          class="gallery_images"
-          src="static/profile/images/profileExample.jpg"
-        />
-        <img
-          class="gallery_images"
-          src="static/profile/images/profileExample.jpg"
-        />
-        <img
-          class="gallery_images"
-          src="static/profile/images/profileExample.jpg"
-        />
+
+        <a id="add_post" href="/">+</a>
       </div>
     </div>
   </div>
-</div>
 
-{% endblock %}
+  {% endblock %}
+</div>
