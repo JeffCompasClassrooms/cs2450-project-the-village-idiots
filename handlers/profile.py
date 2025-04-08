@@ -12,9 +12,15 @@ def index():
     # make sure the user is logged in
     username = flask.request.cookies.get('username')
     password = flask.request.cookies.get('password')
+    print(username)
     if username is None and password is None:
         return flask.redirect(flask.url_for('login.loginscreen'))
     user = users.get_user(db, username, password)
+    first_name = user['first_name']
+    last_name = user['last_name']
+    iq = user['iq']
+    friends = len(user['friends'])
+    points = user['points'] 
     if not user:
         flask.flash('Invalid credentials. Please try again.', 'danger')
         resp = flask.make_response(flask.redirect(flask.url_for('login.loginscreen')))
@@ -23,5 +29,5 @@ def index():
         return resp
 
     return flask.render_template('profile.html', title=copy.title,
-            subtitle=copy.subtitle, user=user, username=username,
+            subtitle=copy.subtitle, user=user, username=username, first_name=first_name, last_name=last_name, friends=friends, iq=iq, points=points,
             profile=True)

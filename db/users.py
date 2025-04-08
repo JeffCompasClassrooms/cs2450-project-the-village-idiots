@@ -1,6 +1,6 @@
 import tinydb
  
-def new_user(db, username, hashed_password, first_name, last_name):
+def new_user(db, username, hashed_password, first_name, last_name, iq):
     users = db.table('users')
     User = tinydb.Query()
     if users.get(User.username == username):
@@ -8,9 +8,11 @@ def new_user(db, username, hashed_password, first_name, last_name):
     user_record = {
             'first_name': first_name,
             'last_name': last_name,
+            'iq': iq,
             'username': username,
             'password': hashed_password,
-            'friends': []
+            'friends': [],
+            'points': 0,
             }
     return users.insert(user_record)
 
