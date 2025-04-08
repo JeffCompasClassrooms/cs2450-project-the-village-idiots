@@ -32,8 +32,13 @@ def login():
     """
     db = helpers.load_db()
 
-    username = flask.request.form.get('new_username')
-    password = flask.request.form.get('new_password')
+    if (flask.request.form.get('new_username')):
+        username = flask.request.form.get('new_username')
+        password = flask.request.form.get('new_password')
+    else:
+        username = flask.request.form.get('username')
+        password = flask.request.form.get('password')
+
     hashed_password = helpers.hash_password(password)
 
     resp = flask.make_response(flask.redirect(flask.url_for('login.index')))
@@ -45,9 +50,6 @@ def login():
         first_name = flask.request.form.get('new_first_name')
         last_name = flask.request.form.get('new_last_name')
         iq = flask.request.form.get('new_iq')
-
-
-        print("WHAT" + username + password + hashed_password + first_name + last_name + iq)
 
         if users.new_user(db, username, hashed_password, first_name, last_name, iq) is None:
             resp.set_cookie('username', '', expires=0)
