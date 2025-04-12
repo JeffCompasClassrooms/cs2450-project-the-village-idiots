@@ -108,7 +108,7 @@ def index():
     # sort posts
     sorted_posts = sorted(all_posts, key=lambda post: post['time'], reverse=True)
 
-    return flask.render_template('feed.html', title=copy.title,
+    return flask.render_template('feed_page.html', title=copy.title,
             subtitle=copy.subtitle, user=user, username=username,
             friends=friends, posts=sorted_posts)
 
