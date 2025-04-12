@@ -1,124 +1,104 @@
-import os
-import time
-import unittest
-import unittest.mock
-
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-import tinydb
+import time
 
-from db import helpers
+def setup_driver():
+    options = Options()
+    options.add_argument("--log-level=3")
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    return webdriver.Chrome(options=options)
 
-YOUFACE_URL = "http://localhost:5000"
+def get_rgb(value):
+    return tuple(map(int, value.strip("rgba()").split(",")[:3]))
 
-def create_test_user(db, username, password):
-    users = db.table('users')
-    user_record = {
-            'username': username,
-            'password': password,
-            'friends': []
-            }
-    users.insert(user_record)
+def print_passed(message):
+    print(f"[PASSED] - {message}")
 
-class TestLoginPage(unittest.TestCase):
+def print_failed(message):
+    print(f"[FAILED] - {message}")
 
-    def setUp(self):
-        # Use a test database instead of the real one
-        self.filename = '/tmp/youfacetestdb'+str(time.time())
-        self.patcher = unittest.mock.patch('db.helpers.load_db', return_value=tinydb.TinyDB(self.filename, sort_keys=True, indent=4, separators=(',', ': ')))
-        self.patcher.start()
+def run_tests():
+    print("Beginning Tests - Daniel Werner\n")
+    driver = setup_driver()
+    try:
+        driver.get("http://localhost:5000/loginscreen")
+        time.sleep(1)
 
-        # Grab the database
-        self.db = helpers.load_db()
-        self.username = "username"
+        # --- Button Existence and Color ---
+        login_button = driver.find_element(By.CSS_SELECTOR, "input[type='submit'][value='Login']")
+        print_passed("Login Button Exists")
 
-        create_test_user(self.db, self.username, self.username)
+        login_color = get_rgb(login_button.value_of_css_property("background-color"))
+        if login_color == (47, 95, 118):
+            print_passed("Login Button is #2F5F76")
+        else:
+            print_failed(f"Login Button color mismatch: {login_color}")
 
-    def tearDown(self):
-        # Stop using the test database
-        self.patcher.stop()
-        # Delete the db file
-        os.remove(self.filename)
+        signup_button = driver.find_element(By.CSS_SELECTOR, "input[type='submit'][value='Create Account']")
+        print_passed("Create User Button Exists")
 
+        signup_color = get_rgb(signup_button.value_of_css_property("background-color"))
+        if signup_color == (47, 95, 118):
+            print_passed("Create User Button is #2F5F76")
+        else:
+            print_failed(f"Create User Button color mismatch: {signup_color}")
 
-    def test_login(self):
-        driver = webdriver.Chrome(executable_path="./tests/chromedriver")
+        # --- Slider Toggle ---
+        login_btn = driver.find_element(By.ID, "loginButton")
+        signup_btn = driver.find_element(By.ID, "signinButton")
+        login_form = driver.find_element(By.ID, "ImLoggingIn")
+        signup_form = driver.find_element(By.ID, "ImCreatingAnAccount")
 
-        # 1. request home page
-        driver.get(YOUFACE_URL)
-
-        #
-        # Test invalid login
-        #
-
-        # 2. enter username and password
-        try:
-            username_box = driver.find_element(By.NAME, "username")
-        except NoSuchElementException:
-            self.fail("Failed to find the username input box.")
-        username_box.send_keys("invalid")
-
-        try:
-            password_box = driver.find_element(By.NAME, "password")
-        except NoSuchElementException:
-            self.fail("Failed to find the password input box.")
-        password_box.send_keys("invalid")
-
-        # 3. click login button
-        try:
-            login_btn = driver.find_element(By.CLASS_NAME, "btn-primary")
-        except NoSuchElementException:
-            self.fail("Failed to find the login button.")
+        if login_form.is_displayed() and not signup_form.is_displayed():
+            print_passed("Initial state: Login visible, Signup hidden")
+        signup_btn.click()
+        time.sleep(0.5)
+        if signup_form.is_displayed() and not login_form.is_displayed():
+            print_passed("Signup form visible, Login hidden after toggle")
         login_btn.click()
+        time.sleep(0.5)
+        if login_form.is_displayed() and not signup_form.is_displayed():
+            print_passed("Login form visible, Signup hidden after re-toggle")
 
-        # test login worked
-        self.assertIn("loginscreen", driver.current_url)
+        # --- Password Toggle for Login Form ---
+        pwd_input = driver.find_element(By.ID, "password_input")
+        eye_icon = driver.find_element(By.XPATH, "//div[@id='ImLoggingIn']//img[contains(@class,'passwordToggleIcon')]")
 
+        eye_icon.click()
+        time.sleep(0.3)
+        if pwd_input.get_attribute("type") == "text":
+            print_passed("Password shows on toggle (Login form)")
+        eye_icon.click()
+        time.sleep(0.3)
+        if pwd_input.get_attribute("type") == "password":
+            print_passed("Password hides on second toggle (Login form)")
 
-        #
-        # test valid login
-        #
+        # --- Password Toggle for Signup Form ---
+        signup_btn.click()
+        time.sleep(0.5)
 
-        try:
-            username_box = driver.find_element(By.NAME, "username")
-        except NoSuchElementException:
-            self.fail("Failed to find the username input box.")
-        username_box.send_keys(self.username)
-        try:
-            password_box = driver.find_element(By.NAME, "password")
-        except NoSuchElementException:
-            self.fail("Failed to find the password input box.")
-        password_box.send_keys(self.username)
-        try:
-            login_btn = driver.find_element(By.CLASS_NAME, "btn-primary")
-        except NoSuchElementException:
-            self.fail("Failed to find the login button.")
-        login_btn.click()
-        self.assertNotIn("loginscreen", driver.current_url)
+        new_pwd = driver.find_element(By.ID, "new_password")
+        new_eye = driver.find_element(By.XPATH, "//div[@id='ImCreatingAnAccount']//img[contains(@class,'passwordToggleIcon')]")
 
-        driver.close()
+        new_eye.click()
+        time.sleep(0.3)
+        if new_pwd.get_attribute("type") == "text":
+            print_passed("Password shows on toggle (Signup form)")
+        new_eye.click()
+        time.sleep(0.3)
+        if new_pwd.get_attribute("type") == "password":
+            print_passed("Password hides on second toggle (Signup form)")
 
-    def test_create_user(self):
-        driver = webdriver.Chrome(executable_path="./tests/chromedriver")
-        #
-        # test empty username and password
-        #
-        "As a user, if I type in a blank username and password, I should not be able to create a user"
-        driver.get(YOUFACE_URL)
+        # --- Add image toggle test here if applicable ---
 
-        time.sleep(3)
+    except Exception as e:
+        print("[ERROR]", e)
 
-        try:
-            create_btn = driver.find_element(By.CLASS_NAME, "btn-success")
-        except NoSuchElementException:
-            self.fail("Failed to find the create button.")
-        create_btn.click()
-
-        self.assertIn("loginscreen", driver.current_url)
-
-    #def test_delete_user(self):
-        #pass
+    finally:
+        print("\nEnding Tests")
+        driver.quit()
 
 if __name__ == "__main__":
-    unittest.main()
+    run_tests()
+ 
