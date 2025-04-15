@@ -43,10 +43,18 @@ def register_templates(app):
                 username = flask.username
                 user = flask.user
 
+                first_name = user['first_name']
+                last_name = user['last_name']
+                iq = user['iq']
+                friends = len(user['friends'])
+                points = user['points'] 
+
+                
+
                 file = flask.request.path.replace('/', '') + "_page.html"
                 
                 return flask.render_template(file, title=copy.title,
-                        subtitle=copy.subtitle, user=user, username=username)
+                        subtitle=copy.subtitle, user=user, username=username, first_name=first_name, last_name=last_name, friends=friends, iq=iq, points=points)
 
             view_func.__name__ = route_name  # Give the view function a name
 
