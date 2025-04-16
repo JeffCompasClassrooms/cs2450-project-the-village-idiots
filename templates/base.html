@@ -24,61 +24,10 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../static/nav/nav.js"></script>
     {% block head %} {% endblock %}
   </head>
-  <nav> 
-    <div class="container">
-      <div class="home-button">
-        <a href="/"><img src="../static/res/logo.png" style="width: 45px;"></a>
-        <a id="title" href="/">{{ title }} </a>
-      </div>
-      {% if user %}
-        <div class="center-buttons">
-          <a href="/games">games</a> 
-          <a href="/feed">feed</a>
-          <a href="/friends">friends</a>
-          <a href="/profile">profile</a>
-          <a href="/coming_soon">search</a>
-        </div>
-        <button class="hamburger" onclick="toggleMenu()">⌄</button>
-        <ul id="nav-menu">
-          <a href="/profile"></a>
-          <form method="post" action="/logout">
-            <button type="submit" class="form-control" name="logout">Logout</button>
-          </form>
-        </ul>
-        <div class="profile-hamburger">
-          <ul>
-          </ul>
-        </div>
-      {% endif %}
-    </div>
-  </nav>
+  {% include "nav.html" %}
   <body>
-    
-    <!-- <nav class="navbar">
-      <div class="container">
-        <div class="navbar-brand">
-          <a href="/"><img src="../static/res/logo.png" style="width: 45px;"></a>
-          <a id="title" href="/">{{ title }} </a>
-        </div>
-        {% if user %}
-          <ul class="navbar-links">
-            <a href="/games">games</a> 
-            <a href="/feed">feed</a>
-            <a href="/friends">friends</a>
-            <a href="/profile">profile</a>
-            <a href="/profile">search</a>
-          </ul>
-          <form method="post" action="/logout">
-            <button type="submit" class="form-control" name="logout">Logout</button>
-          </form>
-        {% endif %}
-        </div>
-      </div>
-    </nav> -->
-
     <div class="container">
       <!-- debugging centerline -->
       <!-- <div class="center-line"></div> -->

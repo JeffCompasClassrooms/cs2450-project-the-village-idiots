@@ -5,7 +5,7 @@ function toggleMenu() {
 
     if (menu.classList.contains('active')) {
         const hamburgerRect = hamburger.getBoundingClientRect();
-        menu.style.left = (hamburgerRect.left - 30) + 'px';
+        menu.style.left = (hamburgerRect.left - 5) + 'px';
         menu.style.top = (hamburgerRect.bottom -5) + 'px';
 
         setTimeout(() => { document.addEventListener('click', closeMenuOnClickOutside);}, 0);
@@ -20,3 +20,12 @@ function toggleMenu() {
         }
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const profileImg = document.getElementById("nav_profile_img");
+    if (profileImg) {
+        const hue = Math.floor(Math.random() * 360);
+        const color = `hsl(${hue}, 65%, 55%)`;
+        profileImg.style.backgroundColor = color;
+    }
+});

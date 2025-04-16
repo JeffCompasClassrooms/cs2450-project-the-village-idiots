@@ -49,8 +49,9 @@ def login():
     if submit == 'Create Account':
         first_name = flask.request.form.get('new_first_name')
         last_name = flask.request.form.get('new_last_name')
+        iq = flask.request.form.get('new_iq')
 
-        if users.new_user(db, username, hashed_password, first_name, last_name) is None:
+        if users.new_user(db, username, hashed_password, first_name, last_name, iq) is None:
             resp.set_cookie('username', '', expires=0)
             resp.set_cookie('password', '', expires=0)
             flask.flash('Username {} already taken!'.format(username), 'danger')
