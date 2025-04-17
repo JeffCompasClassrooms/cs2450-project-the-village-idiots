@@ -27,3 +27,7 @@ body {
     transform: translateX(-50%);
     z-index: 1000;
 }
+.mainContainer {
+    padding: 0;
+    height: 100vh
+}

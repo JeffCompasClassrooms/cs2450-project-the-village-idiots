@@ -48,8 +48,6 @@ def register_templates(app):
                 iq = user['iq']
                 friends = len(user['friends'])
                 points = user['points'] 
-                
-                
 
                 file = flask.request.path.replace('/', '') + "_page.html"
                 
