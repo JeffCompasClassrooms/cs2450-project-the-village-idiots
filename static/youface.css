@@ -11,14 +11,9 @@
     }
 }
 
-.navbar {
-    background-color: #2F5F76;
-    color:white;
-    height: 4em;
-}
-
-.navbar-brand {
-    margin: auto;
+body {
+    background-color: #e8ecf3;
+    margin:0px;
 }
 
 /* debugging centerline  */
@@ -28,7 +23,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background-color: red;
+    background-color: rebeccapurple;
     transform: translateX(-50%);
     z-index: 1000;
 }

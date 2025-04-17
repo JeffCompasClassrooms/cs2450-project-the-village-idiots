@@ -8,7 +8,7 @@ import timeago
 import tinydb
 
 # handlers
-from handlers import friends, login, posts, copy
+from handlers import friends, login, posts, copy, points
 from auth import auth_required
 
 
@@ -49,8 +49,6 @@ def register_templates(app):
                 friends = len(user['friends'])
                 points = user['points'] 
 
-                
-
                 file = flask.request.path.replace('/', '') + "_page.html"
                 
                 return flask.render_template(file, title=copy.title,
@@ -67,6 +65,7 @@ register_templates(app)
 app.register_blueprint(friends.blueprint)
 app.register_blueprint(login.blueprint)
 app.register_blueprint(posts.blueprint)
+app.register_blueprint(points.blueprint)
 
 app.secret_key = 'mygroup'
 app.config['SESSION_TYPE'] = 'filesystem'
