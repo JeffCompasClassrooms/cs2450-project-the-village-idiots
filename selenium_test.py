@@ -50,7 +50,7 @@ class TestLoginPage(unittest.TestCase):
 
         driver.close()
 
-    # Connor Unit test #
+    #- Connor Unit test -#
 '''class GamesSectionTests(unittest.TestCase):
     def setUp(self):
         opts = Options()
