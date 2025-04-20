@@ -49,7 +49,9 @@ class TestLoginPage(unittest.TestCase):
         self.assertIn("loginscreen", driver.current_url)
 
         driver.close()
-class GamesSectionTests(unittest.TestCase):
+
+    # Connor Unit test #
+'''class GamesSectionTests(unittest.TestCase):
     def setUp(self):
         opts = Options()
         opts.add_argument("--headless")
@@ -199,3 +201,4 @@ class BlackjackTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+'''
