@@ -13,7 +13,10 @@
       href="{{ url_for('static', filename='youface.css') }}"
       type="text/css"
     />
-    <link rel="stylesheet" href="{{ url_for('static', filename='nav/nav.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='nav/nav.css') }}"
+    />
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -33,17 +36,17 @@
         --nav-color: {{ nav_color | default('#308A6F') }};
         --nav-body-color: {{ nav_body_color | default('#2f6076') }};
       }
-    
+
       body {
         background-color: var(--body-color);
         color: var(--text-color);
       }
-    
+
       nav {
         background-color: var(--nav-body-color) !important;
         color: var(--nav-color) !important;
       }
-    
+
       nav a,
       #title,
       #balance,
@@ -52,7 +55,7 @@
       #nav-menu .form-control {
         color: var(--nav-color);                  /* ensure text uses nav-color */
       }
-    
+
       #nav-menu {
         background-color: var(--nav-body-color);  /* background of dropdown */
       }
@@ -61,11 +64,12 @@
   </head>
   {% include "nav.html" %}
   <body>
-    <div class="container">
+    <div class="container relative">
       <!-- debugging centerline -->
       <!-- <div class="center-line"></div> -->
 
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
       <div
         class="alert alert-dismissible alert-{{ category }} fade show"
         role="alert"

@@ -7,6 +7,13 @@
 
 {% endblock %} {% block content %}
 
+<div
+  class="absolute top-2 left-0 text-white text-2xl hidden hover:cursor-pointer"
+  id="bet-display"
+>
+  Bet: 0
+</div>
+
 <!-- Modal Popup for Blackjack Rules & Tips -->
 <div id="rulesModal" class="modal">
   <div class="modal-content">
@@ -40,6 +47,23 @@
       </li>
       <li>***The dealer must hit until reaching at least 17.***</li>
     </ul>
+  </div>
+</div>
+
+<div id="betModal" class="modal closed">
+  <div class="modal-content">
+    <h1>Bet</h1>
+    <p>Place your bet</p>
+    <p>Regular wins are paid out 1:1</p>
+    <p>Blackjack wins are paid out 3:2</p>
+    <input
+      type="number"
+      id="betInput"
+      min="1"
+      max="{{ user.points }}"
+      value="1"
+    />
+    <button id="placeBetButton">Place Bet</button>
   </div>
 </div>
 
