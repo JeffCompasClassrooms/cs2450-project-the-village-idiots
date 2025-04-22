@@ -5,8 +5,8 @@ import os
 # installed imports
 import flask
 import timeago
-import tinydb
 from db import users, helpers
+from db import posts as posts_db
 
 # handlers
 from handlers import friends, login, posts, copy, points
@@ -57,7 +57,7 @@ def register_templates(app):
                 friends = users.get_user_friends(db, user) 
                 points = user['points'] 
                 theme = helpers.get_user_theme_context(user)  
-
+                my_posts = posts_db.get_posts(db, user)
                 file = flask.request.path.replace('/', '') + "_page.html"
 
                 return flask.render_template(
@@ -71,6 +71,7 @@ def register_templates(app):
                     friends=friends,
                     iq=iq,
                     points=points,
+                    my_posts=my_posts,
                     **theme
                 )
 
