@@ -9,15 +9,23 @@ blueprint = flask.Blueprint("friends", __name__)
 @blueprint.route('/addfriend', methods=['POST'])
 @auth_required
 def addfriend():
-    """Adds a friend to the user's friends list."""
     db = helpers.load_db()
-
     user = flask.user
-    # add the friend
-    name = flask.request.form.get('name')
-    msg, category = users.add_user_friend(db, user, name)
 
-    flask.flash(msg, category)
+    friend_name = flask.request.form.get('name')
+    if not friend_name:
+        flask.flash('Please enter a username to add as a friend.', 'danger')
+        return flask.redirect(flask.url_for('login.index'))
+
+    # Check if the friend exists in the database
+    friend = users.get_user_by_name(db, friend_name)
+    if not friend:
+        flask.flash('User not found.', 'danger')
+        return flask.redirect(flask.url_for('login.index'))
+
+    message, category = users.add_user_friend(db, user, friend_name)
+    flask.flash(message, category)
+
     return flask.redirect(flask.url_for('login.index'))
 
 @blueprint.route('/unfriend', methods=['POST'])

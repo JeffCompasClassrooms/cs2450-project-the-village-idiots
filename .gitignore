@@ -2,5 +2,7 @@ __pycache__/
 db.json
 .DS_Store
 
+status/uploads/*
+
 # Crew's terminal sanity
 .envrc
