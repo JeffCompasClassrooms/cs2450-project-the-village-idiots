@@ -7,7 +7,7 @@ import timeago
 import tinydb
 
 # handlers
-from handlers import friends, login, posts, plinko, profile, games, blackjack, roulette
+from handlers import friends, login, posts, plinko, profile, games, blackjack
 
 
 app = flask.Flask(__name__)
