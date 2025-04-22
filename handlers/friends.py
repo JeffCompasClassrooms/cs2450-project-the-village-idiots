@@ -10,7 +10,7 @@ blueprint = flask.Blueprint("friends", __name__)
 @auth_required
 def addfriend():
     db = helpers.load_db()
-    user = flask.g.user  # Retrieve the authenticated user from flask.g
+    user = flask.user
 
     friend_name = flask.request.form.get('name')
     if not friend_name:
@@ -81,7 +81,7 @@ def friends_home():
         resp.set_cookie('username', '', expires=0)
         resp.set_cookie('password', '', expires=0)
         return resp
-
+    theme = helpers.get_user_theme_context(user)
     return flask.render_template('friends.html', title=copy.title,
             subtitle=copy.subtitle, user=user, username=username,
-            friends_home=True)
+            friends_home=True, **theme)

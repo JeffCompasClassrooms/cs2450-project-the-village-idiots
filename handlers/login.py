@@ -2,7 +2,7 @@ import flask
 
 from handlers import copy
 from db import posts, users, helpers
- 
+
 blueprint = flask.Blueprint("login", __name__)
 
 @blueprint.route('/loginscreen')
@@ -108,10 +108,11 @@ def index():
         all_posts += posts.get_posts(db, friend)
     # sort posts
     sorted_posts = sorted(all_posts, key=lambda post: post['time'], reverse=True)
-
+    
+    theme = helpers.get_user_theme_context(user)
     return flask.render_template('feed_page.html', title=copy.title,
             subtitle=copy.subtitle, user=user, username=username,
-            friends=friends, posts=sorted_posts)
+            friends=friends, posts=sorted_posts, **theme)
 
 # Example implementation of users.get_user and users.new_user
 

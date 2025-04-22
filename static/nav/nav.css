@@ -2,8 +2,6 @@ nav {
     margin:0px;
     padding:0px;
     width:100%;
-    color:white;
-    background-color: #308A6F;
 }
 
 hr {
@@ -32,7 +30,6 @@ nav .container {
 #title {
     font-size: 1.2rem;
     padding: .5em;
-    color:white;
     font-weight:700;
 }
 
@@ -83,7 +80,6 @@ nav .container {
     text-decoration: none;
     color: var(--primary-text-color);
     padding: 10px;
-    border-bottom: 1px solid blue;
 }
 
 #nav-menu.active {
@@ -94,7 +90,7 @@ nav .container {
     display: none;
     position: absolute;
     font-size: 15px;
-    background-color: #2fd8bc;
+    background-color: rgba(155, 155, 155, .9);
     max-width: 80px;
     padding: 0px 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -128,6 +124,11 @@ nav .container {
     font-size: 2rem;
 }
 
-nav a:hover {
-    color:white;
+.center-buttons a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#nav_profile_img:hover {
+    text-decoration: none;
 }

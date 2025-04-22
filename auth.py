@@ -21,6 +21,7 @@ def auth_required(f):
             resp.set_cookie('password', '', expires=0)
             return resp
 
-        flask.g.user = user  # Set the user in flask.g
+        flask.username = username
+        flask.user = user
         return f(*args, **kwargs)
     return decorated_function

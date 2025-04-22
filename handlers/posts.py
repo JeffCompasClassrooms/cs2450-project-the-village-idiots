@@ -88,7 +88,7 @@ def add_comment():
 @auth_required
 def post():
     db = helpers.load_db()
-    user = flask.g.user
+    user = flask.user
 
     text = flask.request.form.get('post')
     photo = flask.request.files.get('photo')
