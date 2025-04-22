@@ -1,9 +1,10 @@
 /* games_home.css */
 
 /* Overall background for the games section */
-body {
-  background: #f8f9fa; /* light gray background */
-}
+/* body {
+  light gray background
+  background: #f8f9fa; 
+} */ 
 
 /* Main container adjustments for the games page */
 .container.games-home {
