@@ -1,13 +1,11 @@
-{% extends "base.html" %} {% block head %} {{ super() }}
+{% extends "base.html" %} {% block content %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='games/css/games.css') }}"
   type="text/css"
 />
 
-{% endblock %} {% block content %}
-
-<div class="container mx-auto py-8">
+<div class="container games-home mx-auto py-8">
   <h2 class="text-2xl font-bold mb-4">Games Section</h2>
   <p class="mb-6">
     Welcome to the games section. In this area you can explore various games and
@@ -32,11 +30,11 @@
         class="w-full aspect-square object-cover"
       />
     </a>
-    <!-- Example game link: filler -->
-    <a href="/filler" class="block">
+    <!-- Example game link: roulette -->
+    <a href="/roulette" class="block">
       <img
-        src="{{ url_for('static', filename='games/images/snake.png') }}"
-        alt="filler"
+        src="{{ url_for('static', filename='games/images/roulette.png') }}"
+        alt="Roulette"
         class="w-full aspect-square object-cover"
       />
     </a>

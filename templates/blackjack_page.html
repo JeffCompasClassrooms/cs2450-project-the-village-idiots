@@ -43,6 +43,23 @@
   </div>
 </div>
 
+<div id="betModal" class="modal closed">
+  <div class="modal-content">
+    <h1>Bet</h1>
+    <p>Place your bet</p>
+    <p>Regular wins are paid out 1:1</p>
+    <p>Blackjack wins are paid out 3:2</p>
+    <input
+      type="number"
+      id="betInput"
+      min="1"
+      max="{{ user.points }}"
+      value="1"
+    />
+    <button id="placeBetButton">Place Bet</button>
+  </div>
+</div>
+
 <div id="blackjack-container" class="container mx-auto py-8">
   <h1 class="text-3xl font-bold mb-4 text-center">Blackjack</h1>
 
