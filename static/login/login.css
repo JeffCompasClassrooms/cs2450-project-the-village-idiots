@@ -7,7 +7,7 @@
 }
 
 #loginH1 {
-    color: #2F5F76;
+    color: #308A6F;
     opacity: 100;
     font-size: 2rem;
     margin: 1rem;
@@ -17,9 +17,9 @@
     padding: .35em;
     width: 24em;
     border: none;
-    background-color: #2F5F76;
+    background-color: #308A6F;
     color: white;
-    border: 2px solid #2F5F76;
+    border: 2px solid #308A6F;
     border-radius: 5px;
 }
 
@@ -28,7 +28,7 @@
     flex-direction: column;
     padding: 1em;
     align-items: center;
-    color: #2F5F76;
+    color: #308A6F;
     width: 100%;
 }
 
@@ -41,7 +41,7 @@
 
 .signinInput {
     width: 24em;
-    border: 2px solid #2F5F76;
+    border: 2px solid #308A6F;
     border-radius: 5px;
     padding: .7em;
     margin-bottom: .7em;
@@ -58,7 +58,7 @@
 #buttonSlider {
     width: 24em;
     height: 39.5px;
-    background-color:  #2F5F76;
+    background-color:  #308A6F;
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -69,7 +69,7 @@
     width: 49%;
     height: 80%;
     border: none;
-    background-color: #5ea9c7;
+    background-color: #73bba6;
     color: white;
     border-radius: 5px;
     cursor: pointer;

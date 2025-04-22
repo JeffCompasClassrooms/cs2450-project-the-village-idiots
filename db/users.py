@@ -1,4 +1,5 @@
 import tinydb
+from tinydb import where
  
 def new_user(db, username, hashed_password, first_name, last_name, iq):
     users = db.table('users')
@@ -17,15 +18,11 @@ def new_user(db, username, hashed_password, first_name, last_name, iq):
     return users.insert(user_record)
 
 def get_user(db, username, hashed_password):
-    users = db.table('users')
-    User = tinydb.Query()
-    return users.get((User.username == username) &
-            (User.password == hashed_password))
+    user = db.table('users').get(where('username') == username and where('password') == hashed_password)
+    return user
 
 def get_user_by_name(db, username):
-    users = db.table('users')
-    User = tinydb.Query()
-    return users.get(User.username == username)
+    return db.table('users').get(where('username') == username)
 
 def delete_user(db, username, password):
     users = db.table('users')
@@ -35,15 +32,7 @@ def delete_user(db, username, password):
 
 def add_user_friend(db, user, friend):
     users = db.table('users')
-    User = tinydb.Query()
-    if friend not in user['friends']:
-        if users.get(User.username == friend):
-            user['friends'].append(friend)
-            users.upsert(user, (User.username == user['username']) &
-                    (User.password == user['password']))
-            return 'Friend {} added successfully!'.format(friend), 'success'
-        return 'User {} does not exist.'.format(friend), 'danger'
-    return 'You are already friends with {}.'.format(friend), 'warning'
+    users.update({'friends': user['friends']}, where('username') == user['username'])
 
 def remove_user_friend(db, user, friend):
     users = db.table('users')

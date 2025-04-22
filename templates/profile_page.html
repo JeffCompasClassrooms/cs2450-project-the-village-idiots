@@ -19,7 +19,7 @@
         </div>
         <div class="space_between" id="profile_text">
           <h4>7 posts</h4>
-          <h4>{{friends}} friends</h4>
+          <h4>{{ friends|length }} friends</h4>
           <h4>{{points}} points</h4>
           <h4>IQ: {{iq}}</h4>
         </div>
@@ -27,11 +27,15 @@
     </div>
     <div id="center">
       <div id="gallery">
+        {% if posts %} {% for post in posts %} {% if post.image %}
         <img
           class="gallery_images"
-          src="static/profile/images/profileExample.jpg"
+          src="{{ url_for('static', filename=post.image) }}"
+          alt="Post Image"
         />
-
+        {% endif %} {% endfor %} {% else %}
+        <p>No posts yet.</p>
+        {% endif %}
         <a id="add_post" href="/">+</a>
       </div>
     </div>
