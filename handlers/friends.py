@@ -1,6 +1,6 @@
 import flask
 
-from handlers import copy, settings
+from handlers import copy
 from db import posts, users, helpers
 from auth import auth_required
 
@@ -68,7 +68,7 @@ def friends_home():
         resp.set_cookie('username', '', expires=0)
         resp.set_cookie('password', '', expires=0)
         return resp
-    theme = settings.get_user_theme_context(user)
+    theme = helpers.get_user_theme_context(user)
     return flask.render_template('friends.html', title=copy.title,
             subtitle=copy.subtitle, user=user, username=username,
             friends_home=True, **theme)

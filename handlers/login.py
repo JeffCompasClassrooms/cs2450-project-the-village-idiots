@@ -1,6 +1,6 @@
 import flask
 
-from handlers import copy, settings
+from handlers import copy
 from db import posts, users, helpers
 
 blueprint = flask.Blueprint("login", __name__)
@@ -109,7 +109,7 @@ def index():
     # sort posts
     sorted_posts = sorted(all_posts, key=lambda post: post['time'], reverse=True)
     
-    theme = settings.get_user_theme_context(user)
+    theme = helpers.get_user_theme_context(user)
     return flask.render_template('feed_page.html', title=copy.title,
             subtitle=copy.subtitle, user=user, username=username,
             friends=friends, posts=sorted_posts, **theme)

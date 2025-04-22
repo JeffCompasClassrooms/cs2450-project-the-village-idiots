@@ -9,7 +9,7 @@ import tinydb
 from db import users, helpers
 
 # handlers
-from handlers import friends, login, posts, copy, points, settings
+from handlers import friends, login, posts, copy, points
 from auth import auth_required
 
 app = flask.Flask(__name__)
@@ -18,7 +18,7 @@ app = flask.Flask(__name__)
 def inject_theme():
     if hasattr(flask, 'user'):
         user = flask.user
-        return settings.get_user_theme_context(user)
+        return helpers.get_user_theme_context(user)
     return {}
 
 @app.template_filter('convert_time')
@@ -56,7 +56,7 @@ def register_templates(app):
                 iq = user['iq']
                 friends = users.get_user_friends(db, user) 
                 points = user['points'] 
-                theme = settings.get_user_theme_context(user)  
+                theme = helpers.get_user_theme_context(user)  
 
                 file = flask.request.path.replace('/', '') + "_page.html"
 
@@ -85,7 +85,7 @@ app.register_blueprint(friends.blueprint)
 app.register_blueprint(login.blueprint)
 app.register_blueprint(posts.blueprint)
 app.register_blueprint(points.blueprint)
-app.register_blueprint(settings.blueprint)
+app.register_blueprint(helpers.blueprint)
 
 app.secret_key = 'mygroup'
 app.config['SESSION_TYPE'] = 'filesystem'
