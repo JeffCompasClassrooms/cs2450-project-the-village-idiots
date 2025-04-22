@@ -20,13 +20,14 @@ class Note {
 	}
 }
 
-const multipliers = [10, 5, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 3, 5, 10];
+const multipliers = [20, 10, 5, 3, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 5, 10, 20];
 multipliers.forEach(
 	(m, i) => (document.getElementById(`note-${i}`).innerHTML = m)
 );
 
 // Create notes
 const notes = [
+	"C#5",
 	"C#5",
 	"C5",
 	"B5",
@@ -43,6 +44,7 @@ const notes = [
 	"A#5",
 	"B5",
 	"C5",
+	"C#5",
 	"C#5"
 ].map((note) => new Note(note));
 
@@ -162,14 +164,14 @@ const render = Render.create({
 
 // Create pegs
 const GAP = 32;
-const PEG_RAD = 4;
+const PEG_RAD = 5;
 const pegs = [];
 for (let r = 0; r < 16; r++) {
-	const pegsInRow = r + 3;
+	const pegsInRow = r + 4;
 	for (let c = 0; c < pegsInRow; c++) {
 		const x = width / 2 + (c - (pegsInRow - 1) / 2) * GAP;
 		const y = GAP + r * GAP;
-		const peg = Bodies.circle(x, y, PEG_RAD, {
+		const peg = Bodies.circle(x, y, PEG_RAD - (r/7), {
 			isStatic: true,
 			label: "Peg",
 			render: {
@@ -218,9 +220,9 @@ Matter.Events.on(engine, "collisionStart", (event) => {
 
 			Matter.Composite.remove(engine.world, ballToRemove);
 			const index = Math.floor(
-				(ballToRemove.position.x - width / 2) / GAP + 17 / 2
+				(ballToRemove.position.x - width / 2) / GAP + 19 / 2
 			);
-			if (index >= 0 && index < 17) {
+			if (index >= 0 && index < 19) {
 				// Register ball
 				const ballsWon = Math.floor(multipliers[index]);
 				balls += ballsWon;

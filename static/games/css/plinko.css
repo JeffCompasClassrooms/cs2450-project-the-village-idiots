@@ -186,49 +186,54 @@ button {
 		}
 
 		&:nth-child(1),
-		&:nth-child(17) {
-			background-color: #0f3;
-			border-color: #0a0;
-		}
-		&:nth-child(2),
-		&:nth-child(16) {
-			background-color: #1f3;
-			border-color: #0a0;
-		}
-		&:nth-child(3),
-		&:nth-child(15) {
-			background-color: #3f2;
-			border-color: #0a0;
-		}
-		&:nth-child(4),
-		&:nth-child(14) {
-			background-color: #4f2;
-			border-color: #0a0;
-		}
-		&:nth-child(5),
-		&:nth-child(13) {
-			background-color: #6f2;
-			border-color: #0a0;
-		}
-		&:nth-child(6),
-		&:nth-child(12) {
-			background-color: #7f1;
-			border-color: #3a0;
-		}
-		&:nth-child(7),
-		&:nth-child(11) {
-			background-color: #9f1;
-			border-color: #4a0;
-		}
-		&:nth-child(8),
-		&:nth-child(10) {
-			background-color: #af0;
-			border-color: #6a0;
-		}
-		&:nth-child(9) {
-			background-color: #cf0;
-			border-color: #7a0;
-		}
+        &:nth-child(19) {
+            background-color: #0f3;
+            border-color: #0a0;
+        }
+        &:nth-child(2),
+        &:nth-child(18) {
+            background-color: #1f3;
+            border-color: #0a0;
+        }
+        &:nth-child(3),
+        &:nth-child(17) {
+            background-color: #3f2;
+            border-color: #0a0;
+        }
+        &:nth-child(4),
+        &:nth-child(16) {
+            background-color: #4f2;
+            border-color: #0a0;
+        }
+        &:nth-child(5),
+        &:nth-child(15) {
+            background-color: #6f2;
+            border-color: #0a0;
+        }
+        &:nth-child(6),
+        &:nth-child(14) {
+            background-color: #7f1;
+            border-color: #3a0;
+        }
+        &:nth-child(7),
+        &:nth-child(13) {
+            background-color: #9f1;
+            border-color: #4a0;
+        }
+        &:nth-child(8),
+        &:nth-child(12) {
+            background-color: #af0;
+            border-color: #6a0;
+        }
+        &:nth-child(9), 
+        &:nth-child(11) {
+            background-color: #cf0;
+            border-color: #7a0;
+        }
+        &:nth-child(10){
+            background-color: rgb(203, 249, 52);
+            border-color: #7b0;
+        }
 	}
 }
 
