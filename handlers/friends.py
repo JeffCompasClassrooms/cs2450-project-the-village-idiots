@@ -23,13 +23,8 @@ def addfriend():
         flask.flash('User not found.', 'danger')
         return flask.redirect(flask.url_for('login.index'))
 
-    # Add the friend to the user's friend list
-    if friend_name not in user['friends']:
-        user['friends'].append(friend_name)
-        users.add_user_friend(db, user, friend_name)
-        flask.flash(f'{friend_name} has been added to your friends list!', 'success')
-    else:
-        flask.flash(f'{friend_name} is already in your friends list.', 'info')
+    message, category = users.add_user_friend(db, user, friend_name)
+    flask.flash(message, category)
 
     return flask.redirect(flask.url_for('login.index'))
 

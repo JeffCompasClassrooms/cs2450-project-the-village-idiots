@@ -37,7 +37,14 @@ def delete_user(db, username, password):
 
 def add_user_friend(db, user, friend):
     users = db.table('users')
-    users.update({'friends': user['friends']}, where('username') == user['username'])
+    User = tinydb.Query()
+    if friend not in user['friends']:
+        if users.get(User.username == friend):
+            user['friends'].append(friend)
+            users.update({'friends': user['friends']}, where('username') == user['username'])
+            return 'Friend {} added successfully!'.format(friend), 'success'
+        return 'User {} does not exist.'.format(friend), 'danger'
+    return 'You are already friends with {}.'.format(friend), 'warning'
 
 def remove_user_friend(db, user, friend):
     users = db.table('users')
