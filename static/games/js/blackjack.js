@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let gameOver = false;
   let playerStands = false;
 
+  let gameBegun = false;
+
   let bet = 0;
 
   let playerPoints = 0;
@@ -132,6 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Start a new game: reset deck and hands, shuffle, and deal initial cards.
   function startGame() {
+    if (gameBegun) {
+      updateMessage("Game already begun.");
+      return;
+    }
+
     if (bet === 0) {
       updateMessage("Please place a bet first.");
       return;
@@ -162,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dealerHand = [];
     gameOver = false;
     playerStands = false;
+    gameBegun = true;
     updateMessage("");
 
     // Deal two cards each
@@ -183,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
       gameOver = true;
+      gameBegun = false;
     }
   }
 
@@ -249,6 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateMessage("You win!");
     }
     gameOver = true;
+    gameBegun = false;
   }
 
   // Attach event listeners to the buttons

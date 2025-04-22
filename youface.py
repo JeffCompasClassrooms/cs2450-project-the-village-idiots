@@ -60,6 +60,12 @@ def register_templates(app):
                 my_posts = posts_db.get_posts(db, user)
                 file = flask.request.path.replace('/', '') + "_page.html"
 
+                all_posts = []
+                for friend in friends + [user]:
+                    all_posts += posts_db.get_posts(db, friend)
+                # sort posts
+                sorted_posts = sorted(all_posts, key=lambda post: post['time'], reverse=True)
+
                 return flask.render_template(
                     file,
                     title=copy.title,
@@ -72,6 +78,7 @@ def register_templates(app):
                     iq=iq,
                     points=points,
                     my_posts=my_posts,
+                    posts=sorted_posts,
                     **theme
                 )
 
