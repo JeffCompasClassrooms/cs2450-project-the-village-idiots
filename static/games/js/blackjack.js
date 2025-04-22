@@ -297,7 +297,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Optionally, close modal when clicking outside the modal content
   window.addEventListener("click", function (event) {
     if (event.target === modal) {
-      modal.style.display = "none";
+      if (modal.style.display != "none") {
+        modal.style.display = "none";
+        betModal.classList.remove("closed");
+      }
     }
   });
 });
