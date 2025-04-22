@@ -6,14 +6,19 @@ def new_user(db, username, hashed_password, first_name, last_name, iq):
     if users.get(User.username == username):
         return None
     user_record = {
-            'first_name': first_name,
-            'last_name': last_name,
-            'iq': iq,
-            'username': username,
-            'password': hashed_password,
-            'friends': [],
-            'points': 0,
-            }
+        'first_name': first_name,
+        'last_name': last_name,
+        'iq': iq,
+        'username': username,
+        'password': hashed_password,
+        'friends': [],
+        'points': 100,
+        'body_color' : '#fefefe',
+        'font_color' : '#000000',
+        'nav_color' : '#fefefe',
+        'nav_body_color' : "#2f6076",
+        'colors' : ['#fefefe', '#000000', '#fefefe', '#2f6076'],
+    }
     return users.insert(user_record)
 
 def get_user(db, username, hashed_password):
