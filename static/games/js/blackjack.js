@@ -6,12 +6,26 @@ document.addEventListener("DOMContentLoaded", () => {
   let gameOver = false;
   let playerStands = false;
 
+  let bet = 0;
+
+  let playerPoints = 0;
+
+  fetch("/points/get", {
+    method: "POST",
+  }).then((response) => {
+    response.json().then((data) => {
+      playerPoints = data.points;
+    });
+  });
+
   // Get DOM elements
   const dealButton = document.getElementById("deal-button");
   const hitButton = document.getElementById("hit-button");
   const standButton = document.getElementById("stand-button");
   const playerHandDiv = document.querySelector("#player-hand .hand");
   const dealerHandDiv = document.querySelector("#dealer-hand .hand");
+
+  const balanceDisplay = document.getElementById("balance");
 
   // Create or get message element to display game status
   let gameMessageDiv = document.getElementById("game-message");
@@ -118,6 +132,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Start a new game: reset deck and hands, shuffle, and deal initial cards.
   function startGame() {
+    if (bet === 0) {
+      updateMessage("Please place a bet first.");
+      return;
+    }
+
+    if (playerPoints < bet) {
+      updateMessage("You don't have enough points to place this bet.");
+      return;
+    }
+
+    if (bet < 0) {
+      updateMessage("Bet cannot be negative.");
+      return;
+    }
+
+    fetch("/points/decreasejson/" + bet, {
+      method: "POST",
+    }).then((response) => {
+      response.json().then((data) => {
+        balanceDisplay.innerText = "Balance: " + data.points;
+        playerPoints = data.points;
+      });
+    });
+
     deck = createDeck();
     shuffle(deck);
     playerHand = [];
@@ -136,6 +174,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check for immediate Blackjack
     if (computeHandValue(playerHand) === 21) {
       updateMessage("Blackjack! You win!");
+      fetch("/points/increasejson/" + Math.floor(bet * 1.5 + bet), {
+        method: "POST",
+      }).then((response) => {
+        response.json().then((data) => {
+          balanceDisplay.innerText = "Balance: " + data.points;
+          playerPoints = data.points;
+        });
+      });
       gameOver = true;
     }
   }
@@ -171,11 +217,35 @@ document.addEventListener("DOMContentLoaded", () => {
     let playerValue = computeHandValue(playerHand);
     if (dealerValue > 21) {
       updateMessage("Dealer busts! You win.");
+      fetch("/points/increasejson/" + bet * 2, {
+        method: "POST",
+      }).then((response) => {
+        response.json().then((data) => {
+          balanceDisplay.innerText = "Balance: " + data.points;
+          playerPoints = data.points;
+        });
+      });
     } else if (dealerValue === playerValue) {
       updateMessage("Push. It's a tie.");
+      fetch("/points/increasejson/" + bet, {
+        method: "POST",
+      }).then((response) => {
+        response.json().then((data) => {
+          balanceDisplay.innerText = "Balance: " + data.points;
+          playerPoints = data.points;
+        });
+      });
     } else if (dealerValue > playerValue) {
       updateMessage("Dealer wins.");
     } else {
+      fetch("/points/increasejson/" + bet * 2, {
+        method: "POST",
+      }).then((response) => {
+        response.json().then((data) => {
+          balanceDisplay.innerText = "Balance: " + data.points;
+          playerPoints = data.points;
+        });
+      });
       updateMessage("You win!");
     }
     gameOver = true;
@@ -194,13 +264,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const placeBetButton = document.querySelector("#placeBetButton");
   const betInput = document.querySelector("#betInput");
 
+  const betDisplay = document.getElementById("bet-display");
+
   closeBtn.addEventListener("click", function () {
     modal.style.display = "none";
     betModal.classList.remove("closed");
   });
 
   placeBetButton.addEventListener("click", function () {
-    console.log(betInput.value);
+    bet = betInput.value;
+
+    betDisplay.innerText = "Bet: " + betInput.value;
+    betDisplay.classList.remove("hidden");
+    betModal.classList.add("closed");
+  });
+
+  betDisplay.addEventListener("click", function () {
+    betModal.classList.remove("closed");
+    betDisplay.classList.add("hidden");
   });
 
   // Optionally, close modal when clicking outside the modal content
