@@ -1,22 +1,31 @@
 import tinydb
-
-def new_user(db, username, password):
+ 
+def new_user(db, username, hashed_password, first_name, last_name, iq):
     users = db.table('users')
     User = tinydb.Query()
     if users.get(User.username == username):
         return None
     user_record = {
-            'username': username,
-            'password': password,
-            'friends': []
-            }
+        'first_name': first_name,
+        'last_name': last_name,
+        'iq': iq,
+        'username': username,
+        'password': hashed_password,
+        'friends': [],
+        'points': 100,
+        'body_color' : '#fefefe',
+        'font_color' : '#000000',
+        'nav_color' : '#fefefe',
+        'nav_body_color' : "#2f6076",
+        'colors' : ['#fefefe', '#000000', '#fefefe', '#2f6076'],
+    }
     return users.insert(user_record)
 
-def get_user(db, username, password):
+def get_user(db, username, hashed_password):
     users = db.table('users')
     User = tinydb.Query()
     return users.get((User.username == username) &
-            (User.password == password))
+            (User.password == hashed_password))
 
 def get_user_by_name(db, username):
     users = db.table('users')

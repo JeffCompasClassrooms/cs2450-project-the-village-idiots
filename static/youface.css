@@ -10,3 +10,24 @@
         }
     }
 }
+
+body {
+    background-color: #e8ecf3;
+    margin:0px;
+}
+
+/* debugging centerline  */
+.center-line {
+    position: fixed;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: rebeccapurple;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+.mainContainer {
+    padding: 0;
+    height: 100vh
+}

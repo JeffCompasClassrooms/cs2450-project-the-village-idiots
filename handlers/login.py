@@ -32,30 +32,47 @@ def login():
     """
     db = helpers.load_db()
 
-    username = flask.request.form.get('username')
-    password = flask.request.form.get('password')
-    password = helpers.hash_password(password)
+    if (flask.request.form.get('new_username')):
+        username = flask.request.form.get('new_username')
+        password = flask.request.form.get('new_password')
+    else:
+        username = flask.request.form.get('username')
+        password = flask.request.form.get('password')
+
+    hashed_password = helpers.hash_password(password)
 
     resp = flask.make_response(flask.redirect(flask.url_for('login.index')))
     resp.set_cookie('username', username)
-    resp.set_cookie('password', password)
+    resp.set_cookie('password', hashed_password)
 
     submit = flask.request.form.get('type')
-    if submit == 'Create':
-        if users.new_user(db, username, password) is None:
+    if submit == 'Create Account':
+        first_name = flask.request.form.get('new_first_name')
+        last_name = flask.request.form.get('new_last_name')
+        iq = flask.request.form.get('new_iq')
+
+        if users.new_user(db, username, hashed_password, first_name, last_name, iq) is None:
             resp.set_cookie('username', '', expires=0)
             resp.set_cookie('password', '', expires=0)
             flask.flash('Username {} already taken!'.format(username), 'danger')
             return flask.redirect(flask.url_for('login.loginscreen'))
         flask.flash('User {} created successfully!'.format(username), 'success')
+    elif submit == 'Login':
+        if users.get_user(db, username, hashed_password):
+            flask.flash('Logged in successfully!', 'success')
+        else:
+            resp.set_cookie('username', '', expires=0)
+            resp.set_cookie('password', '', expires=0)
+            flask.flash('Invalid username or password!', 'danger')
+            return flask.redirect(flask.url_for('login.loginscreen'))
     elif submit == 'Delete':
-        if users.delete_user(db, username, password):
+        if users.delete_user(db, username, hashed_password):
             resp.set_cookie('username', '', expires=0)
             resp.set_cookie('password', '', expires=0)
             flask.flash('User {} deleted successfully!'.format(username), 'success')
 
     return resp
-
+    
 @blueprint.route('/logout', methods=['POST'])
 def logout():
     """Log out the user."""
@@ -91,7 +108,11 @@ def index():
         all_posts += posts.get_posts(db, friend)
     # sort posts
     sorted_posts = sorted(all_posts, key=lambda post: post['time'], reverse=True)
-
-    return flask.render_template('feed.html', title=copy.title,
+    
+    theme = helpers.get_user_theme_context(user)
+    return flask.render_template('feed_page.html', title=copy.title,
             subtitle=copy.subtitle, user=user, username=username,
-            friends=friends, posts=sorted_posts)
+            friends=friends, posts=sorted_posts, **theme)
+
+# Example implementation of users.get_user and users.new_user
+
