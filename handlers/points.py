@@ -25,8 +25,6 @@ def increase_points(amount):
 
     current_points = user.get('points', 0)
 
-    print(amount)
-
     new_points = current_points + amount
     userTable.update({'points': new_points}, User.username == username)
     flask.user['points'] = new_points

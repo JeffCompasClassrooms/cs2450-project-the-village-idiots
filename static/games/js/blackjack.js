@@ -204,6 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (playerValue > 21) {
       updateMessage("Bust! You lose.");
       gameOver = true;
+      gameBegun = false;
     } else if (playerValue === 21) {
       updateMessage("You reached 21! Now stand.");
     }

@@ -140,7 +140,9 @@
           <ul class="list-unstyled">
             {% for friend in friends %}
             <li class="mb-2">
-              <a href="">{{ friend.first_name }}</a>
+              <a href="/friend/{{ friend.username }}"
+                >{{ friend.first_name }}</a
+              >
             </li>
             {% endfor %}
           </ul>
