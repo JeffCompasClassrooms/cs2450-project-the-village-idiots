@@ -56,7 +56,8 @@ def view_friend(fname):
 
     return flask.render_template('friend.html', title=copy.title,
             subtitle=copy.subtitle, user=user, username=username,
-            friend=friend['username'],
+            friend=friend['first_name'],
+            friend_username=friend['username'],
             friends=users.get_user_friends(db, user), posts=all_posts)
 
 @blueprint.route('/friends')

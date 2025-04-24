@@ -58,6 +58,7 @@ def index():
 def add_comment():
     db = helpers.load_db()
     post_id = flask.request.form.get('post_id')
+    friend_username = flask.request.form.get('friend_username')
     comment_text = flask.request.form.get('comment_text')
     username = flask.request.cookies.get('username')
 
@@ -82,7 +83,10 @@ def add_comment():
     posts_table.update({'comments': post['comments']}, where('id') == int(post_id))
 
     flask.flash('Comment added successfully!', 'success')
-    return flask.redirect(flask.url_for('login.index'))
+    if (friend_username):
+        return flask.redirect(flask.url_for('friends.view_friend', fname=friend_username))
+    else:
+        return flask.redirect(flask.url_for('login.index'))
 
 @blueprint.route('/post', methods=['POST'])
 @auth_required
@@ -111,6 +115,7 @@ def react_to_post():
     post_id = int(flask.request.form.get('post_id'))  # Ensure post_id is an integer
     reaction = flask.request.form.get('reaction')
     username = flask.request.cookies.get('username')
+    friend_username = flask.request.form.get('friend_username')
 
     if not username:
         flask.flash('You must be logged in to react.', 'danger')
@@ -135,4 +140,7 @@ def react_to_post():
     posts_table.update(post, where('id') == post_id)
 
     flask.flash('Reaction added successfully!', 'success')
-    return flask.redirect(flask.url_for('login.index'))
+    if (friend_username):
+        return flask.redirect(flask.url_for('friends.view_friend', fname=friend_username))
+    else:
+        return flask.redirect(flask.url_for('login.index'))
